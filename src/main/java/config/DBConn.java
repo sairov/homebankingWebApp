@@ -14,14 +14,15 @@ import java.sql.SQLException;
  * @author pol_m
  */
 public class DBConn {
-    
+    private String driver = "com.mysql.jdbc.Driver";
     private String host = "jdbc:mysql://localhost:3306/";
     
     public Connection getConnection(String database, String userMysql, String passMysql ) {
         Connection conn = null;
         try {
+            Class.forName(driver);
             conn = DriverManager.getConnection(host + database, userMysql, passMysql);
-        } catch(SQLException e) {
+        } catch(ClassNotFoundException | SQLException e) {
             e.printStackTrace();
         }
         return conn;

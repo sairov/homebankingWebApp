@@ -35,7 +35,7 @@ public class UserDAO {
 //        }
 //        
 //    }
- 
+// 
     Connection connection; 
     
     public UserDAO() {
@@ -51,7 +51,7 @@ public class UserDAO {
             preparedSt = connection.prepareStatement("SELECT * FROM users WHERE id = ?");
             preparedSt.setInt(1, id);
             resultSt = preparedSt.executeQuery();
-            
+                  
             if(resultSt.next()) {
                 String username = resultSt.getString("username");
                 String password = resultSt.getString("password");
@@ -64,4 +64,17 @@ public class UserDAO {
               
             return user;
     }
+    
+    public boolean login(String username, String password) throws SQLException {
+        PreparedStatement ps;
+        ResultSet rs;
+
+        ps = connection.prepareStatement("SELECT username, password FROM users WHERE username = ? AND password = ?");
+        ps.setString(1, username);
+        ps.setString(2, password);
+        rs = ps.executeQuery();
+
+       return rs.next();
+    }
+    
 }

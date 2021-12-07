@@ -36,14 +36,14 @@ public class UserController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-           String username = request.getParameter("user");
-           String password = request.getParameter("password");
-           
-           User pepe = new User(username, password);
-           
-           HttpSession session = request.getSession();
-           session.setAttribute("pepe", pepe);
-           response.sendRedirect("/views/user.jsp");
+//           String username = request.getParameter("user");
+//           String password = request.getParameter("password");
+//           
+//           User pepe = new User(username, password);
+//           
+//           HttpSession session = request.getSession();
+//           session.setAttribute("pepe", pepe);
+//           response.sendRedirect("/views/user.jsp");
         }
     }
 

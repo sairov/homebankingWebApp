@@ -20,7 +20,7 @@
 <body style="display: grid; grid-template-rows: auto 1fr auto; min-height: 100vh">
 <h1 class="text-center m-5">Login</h1>
 <main class="container d-flex justify-content-center align-items-center" >
-    <form method="POST" action="UserController" class="bg-light p-5 rounded">
+    <form method="POST" action="./views/user.jsp" class="bg-light p-5 rounded">
         <div class="mb-3">
             <label for="user" class="form-label">Usuario</label>
             <input type="text" class="form-control" id="user" name="user" >
