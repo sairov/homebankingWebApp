@@ -1,4 +1,5 @@
 controller\UserController.class
 config\DBConn.class
+controller\ViewsController.class
 model\User.class
 database\UserDAO.class

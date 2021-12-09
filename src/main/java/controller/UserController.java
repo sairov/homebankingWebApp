@@ -5,21 +5,22 @@
  */
 package controller;
 
+import database.UserDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import model.User;
 
 /**
  *
  * @author pol_m
  */
-@WebServlet(name = "UserController", urlPatterns = {"/UserController"})
+@WebServlet(name = "UserController", urlPatterns = {"/user/*"})
 public class UserController extends HttpServlet {
 
     /**
@@ -36,14 +37,37 @@ public class UserController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-//           String username = request.getParameter("user");
-//           String password = request.getParameter("password");
-//           
-//           User pepe = new User(username, password);
-//           
-//           HttpSession session = request.getSession();
-//           session.setAttribute("pepe", pepe);
-//           response.sendRedirect("/views/user.jsp");
+            
+            String action = request.getPathInfo();    
+            switch (action) {
+                case "/login": 
+                            
+                    String userName = request.getParameter("user");
+                    String pass = request.getParameter("password");
+                    UserDAO userDB = new UserDAO();
+
+                    boolean exists = userDB.login(userName, pass);
+
+                    HttpSession session = request.getSession();
+                    session.setAttribute("exists", exists);
+                    response.sendRedirect("/views/user.jsp");
+                    break;
+                case "/createUser":
+                    
+                    break;
+                case "/updateUser":
+                    
+                    break;
+                default: 
+                    
+                    break;
+            
+            }
+
+            
+            
+        } catch(SQLException e) {
+            e.printStackTrace();
         }
     }
 

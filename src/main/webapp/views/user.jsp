@@ -19,12 +19,8 @@
     <body>
         <h1>Hello World!</h1>
         <%
-            String userName = request.getParameter("user");
-            String pass = request.getParameter("password");
-            UserDAO userDB = new UserDAO();
-            
-            boolean exists = userDB.login(userName, pass);
-            
+            boolean exists = (boolean) session.getAttribute("exists");
+
             if (exists) {      
             %>  
             <h1 class="m-5 text-success" >Acceso garantizado</h1>
@@ -33,9 +29,9 @@
                } else {
             %>
             <h1 class="m-5 text-danger" >Acceso denegado</h1>
-            <a href="../" class="text-primary"> Volver al login</a>
+            <a href="/" class="text-primary"> Volver al login</a>
             <% 
-               }
+                }
             %> 
     </body>
 </html>
