@@ -1,4 +1,10 @@
- <%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%-- 
+    Document   : header
+    Created on : 29/11/2021, 00:58:02
+    Author     : pol_m
+--%>
+
+<%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="es">
   <head>
@@ -22,21 +28,69 @@
               <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
               </button>
-              <div class="collapse navbar-collapse justify-content-end" id="navbarText">
-                <ul class="navbar-nav mb-2 mb-lg-0">                 
-                  <li class="nav-item">
-                    <a class="nav-link" href="/view/register">Hacete cliente</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link" href="#">Institucional</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link" href="#">Contacto</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link" href="/view/login">Online Banking</a>
-                  </li>
+              <div class="collapse navbar-collapse justify-content-end" id="navbarText">               
+                <%
+                    if (session.isNew()) {
+                       session.setAttribute("isLogin", false);
+                    } 
+                    boolean isLogged = (boolean) session.getAttribute("isLogin");
+                    
+                     if (isLogged) {  
+                       // String avatar = (String) session.getAttribute("avatar");
+                %>
+                <ul class="navbar-nav mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/account/myaccounts">Mis Cuentas</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/account/transfer">Transferencias</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Institucional</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Contacto</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/user/profile">Mi Perfil</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/user/logout">Cerrar Sesión</a>
+                    </li>
                 </ul>
+                <% 
+                  //  if (avatar == "female") {
+                %>
+                <!--<div class="avatar">
+                    <img href="/female.jpg" />
+                </div>-->
+                    <% 
+                      //  } else {
+                    %>
+                <!--<div class="avatar">
+                    <img href="/male.jpg" />
+                </div>-->
+                <% 
+                 //   }
+                } else {
+                %>
+                <ul class="navbar-nav mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/view/register">Hacete cliente</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/view/login">Online Banking</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Institucional</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Contacto</a>
+                    </li>
+                </ul>
+                <% 
+                  }
+                %>
               </div>
             </div>
         </nav>

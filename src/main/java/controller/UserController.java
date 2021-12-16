@@ -37,19 +37,23 @@ public class UserController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-             
+            String action = request.getPathInfo();
             
-            String action = request.getPathInfo();    
+            HttpSession session = request.getSession();
+            
+            UserDAO userDB = new UserDAO();        
             switch (action) {
                 case "/login":           
                     String userName = request.getParameter("user");
                     String pass = request.getParameter("password");
-                    UserDAO userDB = new UserDAO();
-                    boolean exists = userDB.login(userName, pass);
 
-                    HttpSession session = request.getSession();
-                    session.setAttribute("exists", exists);
-                    response.sendRedirect("/views/user.jsp");
+                    boolean login = userDB.login(userName, pass);
+                    if (login) {
+                        session.setAttribute("isLogin", login);
+                        response.sendRedirect("/views/profile.jsp");
+                    } else {
+                        response.sendRedirect("/views/login.jsp");
+                    }   
                     break;
                 case "/createUser":
                     userName = request.getParameter("username");
@@ -58,12 +62,24 @@ public class UserController extends HttpServlet {
                     String lastname = request.getParameter("lastname");
                     String email = request.getParameter("email");
                     String gender = request.getParameter("gender");
+                    String repass = request.getParameter("repassword");
                     UserDAO userDBA = new UserDAO();
-                    userDBA.createUser(userName, pass, name, lastname, email, gender);
-                    response.sendRedirect("/view/login.jsp");
-                    break;
-                case "/updateUser":
+                    boolean isCreated = userDBA.createUser(userName, pass, name, lastname, email, gender, repass);
                     
+                    if (isCreated) {
+                         response.sendRedirect("/views/userMessage.jsp");
+                         session.setAttribute("createMessage", isCreated);
+                    } else {
+                        session.setAttribute("createMessage", isCreated);
+                        response.sendRedirect("/views/userMessage.jsp");
+                    }
+                    break;
+                case "/logout":
+                    session.setAttribute("isLogin", false);
+                    response.sendRedirect("/");
+                    break;
+                case "/profile":
+                    response.sendRedirect("/views/profile.jsp");
                     break;
                 default: 
                     

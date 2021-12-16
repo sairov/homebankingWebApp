@@ -5,6 +5,10 @@
  */
 package model;
 
+import database.AccountDAO;
+import java.sql.SQLException;
+import java.util.List;
+
 /**
  *
  * @author pol_m
@@ -17,6 +21,7 @@ public class User {
     private String gender;
     private String email;
     private String avatar;
+    private List<Account> userAccounts;
     
     public User(String username, String password, String name, String lastName, String gender, String email, String avatar) {
         this.username = username;
@@ -26,6 +31,14 @@ public class User {
         this.gender = gender;
         this.email = email;
         this.avatar = avatar;
+        
+        AccountDAO accounts = new AccountDAO();
+        try {
+            this.userAccounts = accounts.getAccounts(1, 5);
+        } catch(SQLException e) {
+            
+        }
+        
     }
     
     public User(String username, String password, String name, String lastName, String email) {
