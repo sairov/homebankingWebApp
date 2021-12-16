@@ -17,7 +17,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author pol_m
  */
-@WebServlet(name = "ViewsController", urlPatterns = {"/register"})
+@WebServlet(name = "ViewsController", urlPatterns = {"/view/*"})
 public class ViewsController extends HttpServlet {
 
     /**
@@ -35,17 +35,18 @@ public class ViewsController extends HttpServlet {
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
            String action = request.getPathInfo();
-           out.println(action);
-//            switch (action) {
-//                case "/register":
-//                    response.sendRedirect("/views/register.jsp");
-//                    break;
-//          
-//                default:
-//                    response.sendRedirect("/views/404.html");
-//                    break;
-//            
-//            }
+            switch (action) {
+                case "/login":
+                    response.sendRedirect("/views/login.jsp");
+                    break;
+                case "/register":
+                    response.sendRedirect("/views/register.jsp");
+                    break;
+                default:
+                    response.sendRedirect("/views/404.html");
+                    break;
+            
+            }
         }
     }
 

@@ -37,15 +37,14 @@ public class UserController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
+             
             
             String action = request.getPathInfo();    
             switch (action) {
-                case "/login": 
-                            
+                case "/login":           
                     String userName = request.getParameter("user");
                     String pass = request.getParameter("password");
                     UserDAO userDB = new UserDAO();
-
                     boolean exists = userDB.login(userName, pass);
 
                     HttpSession session = request.getSession();
@@ -53,7 +52,15 @@ public class UserController extends HttpServlet {
                     response.sendRedirect("/views/user.jsp");
                     break;
                 case "/createUser":
-                    
+                    userName = request.getParameter("username");
+                    pass = request.getParameter("password");
+                    String name = request.getParameter("name");
+                    String lastname = request.getParameter("lastname");
+                    String email = request.getParameter("email");
+                    String gender = request.getParameter("gender");
+                    UserDAO userDBA = new UserDAO();
+                    userDBA.createUser(userName, pass, name, lastname, email, gender);
+                    response.sendRedirect("/view/login.jsp");
                     break;
                 case "/updateUser":
                     

@@ -61,7 +61,7 @@ public class UserDAO {
                 
                 user = new User(username, password, name, lastName, email);
             }
-              
+               
             return user;
     }
     
@@ -75,6 +75,26 @@ public class UserDAO {
         rs = ps.executeQuery();
 
        return rs.next();
+    }
+    
+    public void createUser(String username, String password, String name, String lastname, String email, String gender) throws SQLException {
+        PreparedStatement ps;
+        ResultSet rs;
+        
+//        if (password === repassword) {
+//            
+//        }
+        
+        ps = connection.prepareStatement("INSERT INTO users(username, password, name, last_name, email, gender) "
+                + "VALUES(?, ?, ?, ?, ?, ?)");
+        ps.setString(1, username);
+        ps.setString(2, password);
+        ps.setString(3, name);
+        ps.setString(4, lastname);
+        ps.setString(5, email);
+        ps.setString(6, gender);
+        
+        ps.executeUpdate();    
     }
     
 }
